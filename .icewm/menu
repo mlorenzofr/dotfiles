@@ -1,0 +1,4 @@
+prog gvpnc /usr/share/icons/gnome/32x32/devices/network-vpn.png /opt/gvpnc/gvpnc
+prog Telegram /opt/Telegram/Telegram_logo.svg /opt/Telegram/Telegram
+prog gedit /usr/share/pixmaps/gedit-icon.xpm gedit
+prog Gimp gimp gimp

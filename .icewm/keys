@@ -1,0 +1,10 @@
+key "Super+a" audacious
+key "Super+c" chromium
+key "Super+f" pcmanfm
+key "Super+i" iceweasel
+key "Super+l" xscreensaver-command -activate
+key "Super+p" pidgin
+key "Super+t" gnome-terminal
+key "Super+x" revelation
+key "Super+h" sudo shutdown -h now
+key "Super+r" sudo shutdown -r now

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/usr/bin/xscreensaver -nosplash &
+/usr/bin/dropbox start
+/usr/bin/wicd-gtk --tray
