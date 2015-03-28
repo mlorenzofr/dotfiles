@@ -1,0 +1,9 @@
+[user]
+name  = Manuel Lorenzo Frieiro
+email = mlorenzofr@gmail.com
+
+[color]
+status = auto
+branch = auto
+interactive = auto
+diff = auto
