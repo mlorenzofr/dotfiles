@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=VisualVM
+Comment=
+Exec=/opt/visualvm_138/bin/visualvm
+Icon=utilities-system-monitor
+Path=
+Terminal=false
+StartupNotify=false

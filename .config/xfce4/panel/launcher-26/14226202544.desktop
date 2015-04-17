@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=1 pantalla
+Comment=
+Exec=xrandr --output VGA1 --off
+Icon=video-display-symbolic
+Path=
+Terminal=false
+StartupNotify=false

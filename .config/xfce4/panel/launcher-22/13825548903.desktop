@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Virt-Manager
+Comment=
+Exec=/home/manuel/vm.sh
+Icon=virt-manager
+Path=
+Terminal=false
+StartupNotify=false
