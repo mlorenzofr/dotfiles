@@ -49,13 +49,22 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" NerdTree configuration
-map <S-Tab> :NERDTreeToggle<CR>
-map <S-Left> :tabp<CR>
-map <S-Right> :tabn<CR>
-map <S-x> :tabclose!<CR>
-map <S-Up> :bn<CR>
-map <S-Down> :bp<CR>
+" Mappings non-recursive for <normal> mode
+" Navigation through buffers and tabs
+let mapleader = ","
+nnoremap <S-Tab> :NERDTreeToggle<CR>
+nnoremap <S-x> :tabclose!<CR>
+nnoremap <S-Left> :tabp<CR>
+nnoremap <S-Right> :tabn<CR>
+" Buffers
+nnoremap <S-Up> :bn<CR>
+nnoremap <S-Down> :bp<CR>
+nnoremap <S-X> :bd!<CR>
+" Splits
+nnoremap <leader><Bar> :vsp<CR>
+nnoremap <leader>s :sp<CR>
+nnoremap <leader><Tab> <C-W>w
+nnoremap <leader>x <C-w>q
 
 " airline configuration
 let g:airline_powerline_fonts = 1
