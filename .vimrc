@@ -46,12 +46,16 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " Mappings non-recursive for <normal> mode
 " Navigation through buffers and tabs
 let mapleader = ","
+" Syntastic
+nnoremap <F5> :SyntasticCheck<CR>
+nnoremap <F5><Esc> :SyntasticReset<CR>
+" Tabs
 nnoremap <S-Tab> :NERDTreeToggle<CR>
 nnoremap <S-x> :tabclose!<CR>
 nnoremap <S-Left> :tabp<CR>
