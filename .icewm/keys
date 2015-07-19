@@ -6,5 +6,6 @@ key "Super+l" xscreensaver-command -activate
 key "Super+p" pidgin
 key "Super+t" gnome-terminal
 key "Super+x" revelation
-key "Super+h" sudo shutdown -h now
-key "Super+r" sudo shutdown -r now
+key "Super+h" sudo /sbin/shutdown -h now
+key "Super+r" sudo /sbin/shutdown -r now
+key "Super+Space" gmrun
