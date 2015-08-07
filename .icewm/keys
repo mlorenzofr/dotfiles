@@ -1,11 +1,11 @@
 key "Super+a" audacious
 key "Super+c" chromium
 key "Super+f" pcmanfm
+key "Super+h" gnome-terminal -e "sudo -s /bin/systemctl poweroff"
 key "Super+i" iceweasel
 key "Super+l" xscreensaver-command -activate
 key "Super+p" pidgin
-key "Super+t" gnome-terminal
+key "Super+r" gnome-terminal -e "sudo -s /bin/systemctl reboot"
+key "Super+t" terminator -m
 key "Super+x" revelation
-key "Super+h" sudo /sbin/shutdown -h now
-key "Super+r" sudo /sbin/shutdown -r now
 key "Super+Space" gmrun
