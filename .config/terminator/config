@@ -1,0 +1,20 @@
+[global_config]
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+[keybindings]
+  new_tab = <Primary>t
+[profiles]
+  [[default]]
+    use_system_font = False
+    font = DejaVu Sans Mono 9
+    background_image = None
+    scrollback_infinite = True
+    foreground_color = "#ffffff"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
