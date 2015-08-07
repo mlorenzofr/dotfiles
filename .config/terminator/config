@@ -2,13 +2,18 @@
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
 [keybindings]
   new_tab = <Primary>t
+  copy = <Primary>c
+  split_vert = <Primary>1
+  paste = <Primary>v
+  split_horiz = <Primary>s
 [profiles]
   [[default]]
     use_system_font = False
     font = DejaVu Sans Mono 9
     background_image = None
-    scrollback_infinite = True
     foreground_color = "#ffffff"
+    copy_on_selection = True
+    scrollback_infinite = True
 [layouts]
   [[default]]
     [[[child1]]]
