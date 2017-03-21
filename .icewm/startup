@@ -1,5 +1,6 @@
 #!/bin/bash
 
-/usr/bin/xscreensaver -nosplash &
 /usr/bin/dropbox start
-/usr/bin/wicd-gtk --tray
+/usr/bin/wicd-gtk --tray &
+/usr/bin/kupfer --no-splash &
+/usr/bin/light-locker --no-late-locking &

@@ -1,11 +1,12 @@
 DesktopBackgroundCenter=1
 ConfirmLogout=0
 LockCommand="xscreensaver-command -activate"
-ShutdownCommand="shutdown -h now"
-RebootCommand="shutdown -r now"
-DesktopBackgroundImage="/usr/local/share/images/64959-Deux_ombres_1440_900.png"
+ShutdownCommand="sudo -n /bin/systemctl poweroff"
+RebootCommand="sudo -n /bin/systemctl reboot"
+DesktopBackgroundImage="/home/manuel/Pictures/wallpaper.jpg"
 WorkspaceNames=" 1 ", " 2 "
 NetworkStatusDevice="wlan0"
 TaskBarShowTray=1
 TrayShowAllWindows=1
 TaskBarShowAPMStatus=1
+TimeFormat="%H:%M"
