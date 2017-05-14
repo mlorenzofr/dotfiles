@@ -20,7 +20,7 @@ order += "load"
 order += "tztime local"
 
 wireless _first_ {
-        format_up = "%essid (%quality)"
+        format_up = "%essid"
         format_down = "Wireless down"
 }
 
@@ -36,7 +36,7 @@ battery all {
 }
 
 tztime local {
-        format = "%Y-%m-%d %H:%M"
+        format = "%H:%M"
 }
 
 load {
