@@ -165,9 +165,26 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86KbdBrightnessUp exec "file=/sys/class/leds/asus::kbd_backlight/brightness; val=`cat $file`; if [ $val -lt 3 ]; then echo $(expr $val + 1) | sudo tee $file; fi"
 bindsym XF86KbdBrightnessDown exec "file=/sys/class/leds/asus::kbd_backlight/brightness; val=`cat $file`; if [ $val -gt 0 ]; then echo $(expr $val - 1) | sudo tee $file; fi"
 
+# Change between 1/2 monitor
+#
+set $mode_display [Up/Down] HDMI On/Off, [Left/Right] Move WS
+mode "$mode_display" {
+        # Enable external monitor with Up/Left
+        bindsym Up exec --no-startup-id /usr/bin/xrandr --output HDMI-1 --auto --left-of eDP-1
+        bindsym Left exec --no-startup-id /usr/bin/i3-msg 'move workspace to output left'
+        # Disable external monitor with Down/Right
+        bindsym Down exec --no-startup-id /usr/bin/xrandr --output HDMI-1 --off
+        bindsym Right exec --no-startup-id /usr/bin/i3-msg 'move workspace to output right'
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+XF86Display mode "$mode_display"
+
 # Lock screen with mod+escape
 bindsym $mod+Escape exec /usr/bin/light-locker-command -l
-# Shutdown the system with mod+shift+scape
+# Shutdown the system with mod+shift+Escape
 bindsym $mod+Shift+Escape exec gksudo /bin/systemctl poweroff
 
 exec_always /usr/bin/feh --no-fehbg --bg-fill ~/Pictures/mira.jpg
