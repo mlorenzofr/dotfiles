@@ -1,0 +1,55 @@
+conky.config = {
+	background = false,
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	no_buffers = true,
+    out_to_console = true,
+	out_to_stderr = false,
+    out_to_x = false,
+    pad_percents = 3,
+    short_units = true,
+    times_in_seconds = true,
+    total_run_times = 0,
+	update_interval = 1.0,
+	uppercase = false,
+	use_spacer = 'none',
+};
+
+conky.text = [[[
+	${if_match "$gw_iface"=="(null)"}
+        {
+            "full_text" : "Network Unavailable",
+            "color"     : "\#FF0000"
+        },
+	${endif}
+	${if_match "$gw_iface"=="wlp2s0"}
+    	{
+        	"full_text" : "↓${downspeed wlp2s0}/s",
+        	"color"     : "\#00FF00"
+    	},
+    	{
+        	"full_text" : "↑${upspeed wlp2s0}/s",
+        	"color"     : "\#FF0000"
+    	},
+    	{
+        	"full_text" : "${wireless_essid wlp2s0}",
+        	"color"     : "\#00FF00"
+    	},
+	${endif}
+    {
+        "full_text" :  "${battery_short} ${format_time $battery_time "\hh\mm"}",
+        "color"     : ${if_match ${battery_percent}<15}"\#ff0000"${else}"\#88ABC4"${endif}
+    },
+    {
+        "full_text" : "CPU: $cpu%",
+        "color"     : "\#88ABC4"
+    },
+    {
+        "full_text" : "${time %R}",
+        "color"     : "\#88ABC4"
+    },
+    {
+        "full_text" : ""
+    }
+],
+]];

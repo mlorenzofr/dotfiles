@@ -26,6 +26,8 @@ set shiftround    " round indent to multiple of 'shiftwidth'
 set noautoindent  " align the new line indent with the previous line
 set hlsearch      " highlight search terms
 set incsearch     " show search matches as you type
+highlight IncSearch	cterm=NONE ctermfg=16 ctermbg=10
+highlight Search	cterm=NONE ctermfg=18 ctermbg=11
 set visualbell    " don't beep
 set noerrorbells  " don't beep
 
