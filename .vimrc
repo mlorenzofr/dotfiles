@@ -30,6 +30,7 @@ highlight IncSearch	cterm=NONE ctermfg=16 ctermbg=10
 highlight Search	cterm=NONE ctermfg=18 ctermbg=11
 set visualbell    " don't beep
 set noerrorbells  " don't beep
+set list          " mark eols
 
 " Vundle configuration
 set nocompatible
