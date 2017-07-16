@@ -41,13 +41,13 @@ conky.text = [[[
     ${endif}
     ${if_up tun0}
         {
-            "full_text" : " SP-VPN",
+            "full_text" : " VPN",
             "color"     : "\#FFD700"
         },
     ${endif}
     {
     ${if_match "${exec acpi -b | cut -d ' ' -f3}"=="Charging,"}
-        "full_text" :  " ${format_time $battery_time "\hh\mm"}",
+        "full_text" :  " ${format_time $battery_time "\hh\mm"}",
         ${if_match ${battery_percent} < 15}
             "color"     : "\#FF0000"
         ${else}
@@ -66,6 +66,7 @@ conky.text = [[[
         ${endif}
         ${endif}
     ${else}
+    ${if_match "${exec acpi -b | cut -d ' ' -f3}"=="Discharging,"}
         ${if_match ${battery_percent} < 15}
             "full_text" :  " ${format_time $battery_time "\hh\mm"}",
             "color"     : "\#FF0000"
@@ -88,6 +89,15 @@ conky.text = [[[
         ${endif}
         ${endif}
         ${endif}
+    ${else}
+        ${if_match ${battery_percent}==""}
+            "full_text" :  "",
+            "color"     : "\#00FF00"
+        ${else}
+            "full_text" :  " Battery",
+            "color"     : "\#8A2BE2"
+        ${endif}
+    ${endif}
     ${endif}
     },
     {
