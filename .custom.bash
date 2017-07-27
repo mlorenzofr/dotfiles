@@ -26,7 +26,7 @@ source /etc/bash_completion.d/git-prompt
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWCOLORHINTS=true
 GIT_PS1_UNTRACKEDFILES=true
-PROMPT_COMMAND="__git_ps1 '\[\e]0;\u@\h: \w\a\]\e[1;32m\u@\h\e[m:\e[1;34m\w\e[m' '$ ' ' [%s]'"
+PROMPT_COMMAND="__git_ps1 '\[\e]0;\u@\h: \w\a\]\[\e[1;32m\]\u@\h\[\e[m\]:\[\e[1;34m\]\w\[\e[m\]' '$ ' ' [%s]'"
 
 # Pass (password-store) completion
 source /usr/share/bash-completion/completions/pass
