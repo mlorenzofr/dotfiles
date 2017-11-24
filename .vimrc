@@ -17,20 +17,17 @@ highlight ColorColumn ctermfg=7 ctermbg=8
 au BufRead,BufNewFile *.pp set filetype=puppet
 
 " PEP-8 spec
-set textwidth=79  " lines longer than 79 columns will be broken
-set shiftwidth=4  " operation >> indents 4 columns; << unindents 4 columns
-set tabstop=4     " a hard TAB displays as 4 columns
-set expandtab     " insert spaces when hitting TABs
-set softtabstop=4 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
-set shiftround    " round indent to multiple of 'shiftwidth'
-set noautoindent  " align the new line indent with the previous line
-set hlsearch      " highlight search terms
-set incsearch     " show search matches as you type
-highlight IncSearch	cterm=NONE ctermfg=16 ctermbg=10
-highlight Search	cterm=NONE ctermfg=18 ctermbg=11
-set visualbell    " don't beep
-set noerrorbells  " don't beep
-set list          " mark eols
+set textwidth=79   " lines longer than 79 columns will be broken
+set softtabstop=-1 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
+set shiftround     " round indent to multiple of 'shiftwidth'
+set noautoindent   " align the new line indent with the previous line
+set hlsearch       " highlight search terms
+set incsearch      " show search matches as you type
+set visualbell     " don't beep
+set noerrorbells   " don't beep
+set list           " mark eols
+highlight IncSearch cterm=NONE ctermfg=16 ctermbg=10
+highlight Search cterm=NONE ctermfg=18 ctermbg=11
 
 " Vundle configuration
 set nocompatible
@@ -96,12 +93,12 @@ nnoremap <leader>v <C-V>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-" Set specific settings depending on filetype this way
+" Set specific settings depending on filetype
 if has('autocmd')
-  autocmd filetype html,xml set listchars-=tab:>.
-  autocmd FileType go set nolist
-  autocmd FileType make set nolist
+  autocmd FileType html,xml setlocal listchars-=tab:>.
+  autocmd FileType go setlocal nolist
+  autocmd FileType make setlocal nolist
   autocmd FileType go setlocal ts=2 sw=2
-  autocmd filetype python set expandtab tabstop=4 shiftwidth=4
-  autocmd filetype puppet set expandtab tabstop=2 shiftwidth=2
+  autocmd FileType python setlocal ts=4 sw=4 et fo=croql
+  autocmd FileType puppet setlocal ts=2 sw=2 et
 endif
