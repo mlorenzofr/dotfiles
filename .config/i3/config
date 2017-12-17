@@ -17,7 +17,7 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 10
+font pango:DejaVu Sans Mono 12, FontAwesome 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -153,6 +153,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         position top
+        # status_command i3status | ~/.config/i3status/custom.py
         status_command $HOME/.config/i3/conky-i3bar
 }
 
@@ -182,12 +183,16 @@ mode "$mode_display" {
 }
 bindsym $mod+XF86Display mode "$mode_display"
 
+# Screenshots
+bindsym Print exec maim ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
+bindsym Control+Print exec maim -s ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
+
 # Lock screen with mod+escape
 bindsym $mod+Escape exec /usr/bin/light-locker-command -l
 # Shutdown the system with mod+shift+Escape
 bindsym $mod+Shift+Escape exec gksudo /bin/systemctl poweroff
 
-exec_always /usr/bin/feh --no-fehbg --bg-fill ~/Pictures/mira.jpg
+exec_always /usr/bin/feh --no-fehbg --bg-fill ~/Pictures/bubbles.jpg
 exec --no-startup-id /usr/bin/dropbox start
 exec --no-startup-id /usr/bin/wicd-gtk -t
 exec --no-startup-id /usr/bin/light-locker --no-late-locking
