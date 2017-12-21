@@ -44,6 +44,7 @@ alias dist-upgrade="sudo apt-get update && sudo apt-get dist-upgrade"
 alias mnt="mount | column -t"
 alias path='echo -e ${PATH//:/\\n}'
 alias p="ps auxf"
+alias v="vim"
 alias nocomment="grep -Ev '^(#|$)'"
 
 # Use colors highlight
