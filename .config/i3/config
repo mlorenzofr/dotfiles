@@ -180,6 +180,8 @@ bindsym $mod+Shift+Escape exec --no-startup-id systemctl poweroff -i
 bindsym Print exec maim ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
 bindsym Control+Print exec maim -s ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
 
+# Key binding for password-store dmenu script
+bindsym $mod+x exec /usr/local/bin/passmenu
 
 # Startup apps
 exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.png
