@@ -43,9 +43,21 @@ function dumax {
 alias dist-upgrade="sudo apt-get update && sudo apt-get dist-upgrade"
 alias mnt="mount | column -t"
 alias path='echo -e ${PATH//:/\\n}'
+alias c="clear"
 alias p="ps auxf"
 alias v="vim"
 alias nocomment="grep -Ev '^(#|$)'"
+
+# List Debian installed (and unused) kernels
+function kernels {
+  dpkg -l \
+    | awk '{ if ($2 ~ /^linux-image-[0-9].*/) {
+               printf("%s ", $2)
+             }
+           }
+           END { print "" }' \
+    | sed "s/linux-image-$(uname -r)//g"
+}
 
 # Use colors highlight
 alias diff="colordiff"
