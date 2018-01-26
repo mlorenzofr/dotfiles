@@ -1,38 +1,54 @@
-syntax on
-set t_Co=256
-colorscheme desert
-
-" line numbers
-set number
-highlight LineNr ctermfg=cyan ctermbg=0
-
-set hidden
+" Files
+set hidden          " Hide buffers instead of close them
 set noswapfile      " Don't use swap files when editing
 set nobackup        " Don't use backup files when editing
-set laststatus=2
-set colorcolumn=81  " Print a line in column 81
+set history=250     " Increase command history
+set undolevels=250  " Increase undo levels
+
+" UI
+" Set colors
+colorscheme desert
+set t_Co=256
+"
+syntax on                           " Enable syntax colors
+set number                          " Show line numbers
+set laststatus=2                    " Show status line
+set colorcolumn=81                  " Highlight column 81
+set cursorline                      " Highlight the cursor line
+set showmatch                       " Highlight matching parenthesis
+set visualbell                      " don't beep
+set noerrorbells                    " don't beep
+set list                            " mark eols
+set listchars=tab:→\ ,eol:↲,trail:• " Set symbols for whitespaces
+
+" Spaces & Tabs
+set tabstop=2       " spaces inserted with a tab keystroke
+set shiftwidth=2    " spaces inserted for indentation
+set softtabstop=-1  " use tabstop value when needed
+set shiftround      " round indent to multiple of 'shiftwidth'
+set noautoindent    " align the new line indent with the previous line
+set expandtab       " insert spaces instead of tabs
+
+" Search
+set hlsearch        " highlight search terms
+set incsearch       " show search matches as you type
+
+" Highlight configuration
+highlight LineNr ctermfg=cyan ctermbg=0
 highlight ColorColumn ctermfg=7 ctermbg=8
+highlight IncSearch cterm=NONE ctermfg=16 ctermbg=10
+highlight Search cterm=NONE ctermfg=18 ctermbg=11
+highlight CursorLine cterm=NONE ctermbg=233
+highlight CursorNumber ctermfg=11 ctermbg=16
+highlight SpecialKey cterm=bold ctermfg=11
+highlight NonText cterm=bold ctermfg=21
 
 " Enable puppet syntax
 au BufRead,BufNewFile *.pp set filetype=puppet
 
-" PEP-8 spec
-set textwidth=79   " lines longer than 79 columns will be broken
-set softtabstop=-1 " insert/delete 4 spaces when hitting a TAB/BACKSPACE
-set shiftround     " round indent to multiple of 'shiftwidth'
-set noautoindent   " align the new line indent with the previous line
-set hlsearch       " highlight search terms
-set incsearch      " show search matches as you type
-set visualbell     " don't beep
-set noerrorbells   " don't beep
-set list           " mark eols
-highlight IncSearch cterm=NONE ctermfg=16 ctermbg=10
-highlight Search cterm=NONE ctermfg=18 ctermbg=11
-
 " Vundle configuration
 set nocompatible
 filetype off
-
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -46,6 +62,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
+Plugin 'Yggdroot/indentLine'
 
 call vundle#end()
 filetype plugin indent on
@@ -80,12 +97,11 @@ nnoremap <S-Right> :tabn<CR>
 " Buffers
 nnoremap <S-Up> :bn<CR>
 nnoremap <S-Down> :bp<CR>
-nnoremap <S-X> :bd!<CR>
+nnoremap <leader>x :bd!<CR>
 " Splits
-nnoremap <leader><Bar> :vsp<CR>
-nnoremap <leader>s :sp<CR>
+nnoremap <leader>1 :vsp<CR>
+nnoremap <leader>- :sp<CR>
 nnoremap <leader><Tab> <C-W>w
-nnoremap <leader>x <C-w>q
 " Enable visual block mode with leader-v
 nnoremap <leader>v <C-V>
 
@@ -93,12 +109,18 @@ nnoremap <leader>v <C-V>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
+" indentLine configuration
+let g:indentLine_char = '¦'
+let g:indentLine_enabled = 1
+
 " Set specific settings depending on filetype
 if has('autocmd')
   autocmd FileType html,xml setlocal listchars-=tab:>.
-  autocmd FileType go setlocal nolist
-  autocmd FileType make setlocal nolist
-  autocmd FileType go setlocal ts=2 sw=2
-  autocmd FileType python setlocal ts=4 sw=4 et fo=croql
+  autocmd FileType make setlocal nolist noexpandtab
+  autocmd FileType go setlocal ts=2 sw=2 nolist
+  autocmd FileType python setlocal ts=4 sw=4 et tw=79 fo=croqlt
   autocmd FileType puppet setlocal ts=2 sw=2 et
+  autocmd FileType json setlocal ts=2 sw=2 et fo=tcq2l
+  autocmd FileType json let g:indentLine_enabled = 0
+  autocmd FileType yaml setlocal ts=2 sw=2 et
 endif
