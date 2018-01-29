@@ -21,22 +21,15 @@ export LESS_TERMCAP_so=$'\e[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\e[0m'           # end underline
 export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
 
-# Enable git-prompt
-source /etc/bash_completion.d/git-prompt
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWCOLORHINTS=true
-GIT_PS1_UNTRACKEDFILES=true
-PROMPT_COMMAND="__git_ps1 '\[\e]0;\u@\h: \w\a\]\[\e[1;32m\]\u@\h\[\e[m\]:\[\e[1;34m\]\w\[\e[m\]' '$ ' ' [%s]'"
-
 # Pass (password-store) completion
 source /usr/share/bash-completion/completions/pass
 
 # Show directories/files with more disk use
 function dumax {
-  du -mx $1 | sort -nr \
+  du -mx "$1" | sort -nr \
     | awk '{ if ($1 >= 1000) printf "%s => %0.2f G\n", $2, ($1/1024)
-             else printf "%s => %s M\n", $2, $1 }\' \
-    | head -20 
+             else printf "%s => %s M\n", $2, $1 }' \
+    | head -20
 }
 
 # Some useful aliases
@@ -72,29 +65,21 @@ alias ..="cd .."
 alias ...="cd ../../../"
 alias ....="cd ../../../../"
 
-# Taken from nixcraft thread
-# If you pass no arguments, it just goes up one directory.
-# If you pass a numeric argument it will go up that number of directories.
-# If you pass a string argument, it will look for a parent directory with that
-#    name and go up to it.
-function up {
-  dir=""
-  if [ -z "$1" ]; then
-    dir=".."
-  elif [[ $1 =~ ^[0-9]+$ ]]; then
-    x=0
-    while [ $x -lt ${1:-1} ]; do
-      dir="${dir}../"
-      x=$(($x+1))
-    done
-  else
-      dir=${PWD%/$1/*}/$1
-  fi
-  cd ${dir}
-}
-
 # Change directory and list files
 function cdl {
-    cd $@
+    cd "$@" || return
     ls
 }
+
+# fasd initialization
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" ] || ! [ -s "$fasd_cache" ]; then
+  fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
+# Powerline configuration
+export POWERLINE_BASH_CONTINUATION=1
+export POWERLINE_BASH_SELECT=1
+source /usr/share/powerline/bindings/bash/powerline.sh
