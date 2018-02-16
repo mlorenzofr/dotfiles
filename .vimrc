@@ -104,6 +104,8 @@ nnoremap <leader>- :sp<CR>
 nnoremap <leader><Tab> <C-W>w
 " Enable visual block mode with leader-v
 nnoremap <leader>v <C-V>
+" Save files using sudo with w!!
+cnoremap w!! w !sudo tee > /dev/null %
 
 " airline configuration
 let g:airline_powerline_fonts = 1

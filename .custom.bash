@@ -40,6 +40,7 @@ alias c="clear"
 alias p="ps auxf"
 alias v="vim"
 alias nocomment="grep -Ev '^(#|$)'"
+alias public-ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # List Debian installed (and unused) kernels
 function kernels {
