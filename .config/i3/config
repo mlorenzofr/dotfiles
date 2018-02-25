@@ -133,14 +133,18 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86KbdBrightnessUp exec sudo /usr/local/bin/asus-kbd-brightlight.sh +
 bindsym XF86KbdBrightnessDown exec sudo /usr/local/bin/asus-kbd-brightlight.sh -
 
+# Screen Brightness
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -10
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight +10
+
 # Change between 1/2 monitor
 set $mode_display [Up/Down] HDMI On/Off, [Left/Right] Move WS
 mode "$mode_display" {
   # Enable external monitor with Up/Left
-  bindsym Up exec --no-startup-id /usr/bin/xrandr --output HDMI-1 --auto --left-of eDP-1
+  bindsym Up exec --no-startup-id /usr/bin/xrandr --output HDMI1 --auto --left-of eDP1
   bindsym Left exec --no-startup-id /usr/bin/i3-msg 'move workspace to output left'
   # Disable external monitor with Down/Right
-  bindsym Down exec --no-startup-id /usr/bin/xrandr --output HDMI-1 --off
+  bindsym Down exec --no-startup-id /usr/bin/xrandr --output HDMI1 --off
   bindsym Right exec --no-startup-id /usr/bin/i3-msg 'move workspace to output right'
   # back to normal: Enter or Escape
   bindsym Return mode "default"
