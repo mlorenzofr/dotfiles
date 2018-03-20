@@ -6,8 +6,14 @@ HISTTIMEFORMAT='%F %T '
 # Set terminator as a default TERMINAL
 export TERMINAL="/usr/bin/terminator"
 
-# Set vim as default editor
-export EDITOR="vim"
+# Set vi as default editor
+export EDITOR="vi"
+
+# Set vi as visual editor
+export VISUAL="vi"
+
+# Define the type of running terminal
+export TERM="screen-256color"
 
 # Set less as default PAGER
 export PAGER="less"
@@ -22,6 +28,7 @@ export LESS_TERMCAP_ue=$'\e[0m'           # end underline
 export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
 
 # Pass (password-store) completion
+# shellcheck disable=SC1091
 source /usr/share/bash-completion/completions/pass
 
 # Show directories/files with more disk use
@@ -72,15 +79,35 @@ function cdl {
     ls
 }
 
+# Manage window title
+function title {
+  echo -ne "\033]0;$*\007"
+}
+
+function ssh {
+  wname="$(echo "$*" | cut -d '.' -f 1)"
+  if [ -v TMUX ]; then
+    tmux rename-window "${wname}"
+  fi
+  title "${wname}"
+  command ssh "$@"
+  title "bash"
+  if [ -v TMUX ]; then
+    tmux rename-window "bash"
+  fi
+}
+
 # fasd initialization
 fasd_cache="$HOME/.fasd-init-bash"
 if [ "$(command -v fasd)" -nt "$fasd_cache" ] || ! [ -s "$fasd_cache" ]; then
   fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
 fi
+# shellcheck disable=SC1090
 source "$fasd_cache"
 unset fasd_cache
 
 # Powerline configuration
 export POWERLINE_BASH_CONTINUATION=1
 export POWERLINE_BASH_SELECT=1
+# shellcheck disable=SC1091
 source /usr/share/powerline/bindings/bash/powerline.sh
