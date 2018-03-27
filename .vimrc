@@ -126,3 +126,10 @@ if has('autocmd')
   autocmd FileType json let g:indentLine_enabled = 0
   autocmd FileType yaml setlocal ts=2 sw=2 et
 endif
+
+if exists('$TMUX')
+  map [1;5D B
+  map [1;5C W
+  nnoremap <C-E> $
+  nnoremap <C-A> 0
+endif
