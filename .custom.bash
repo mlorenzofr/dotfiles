@@ -4,7 +4,7 @@ HISTFILESIZE=2000000
 HISTTIMEFORMAT='%F %T '
 
 # Set terminator as a default TERMINAL
-export TERMINAL="/usr/bin/terminator"
+export TERMINAL="/usr/bin/urxvt"
 
 # Set vi as default editor
 export EDITOR="vi"
@@ -13,7 +13,8 @@ export EDITOR="vi"
 export VISUAL="vi"
 
 # Define the type of running terminal
-export TERM="screen-256color"
+# avoid define if possible
+# export TERM="xterm-256color"
 
 # Set less as default PAGER
 export PAGER="less"
