@@ -112,3 +112,13 @@ export POWERLINE_BASH_CONTINUATION=1
 export POWERLINE_BASH_SELECT=1
 # shellcheck disable=SC1091
 source /usr/share/powerline/bindings/bash/powerline.sh
+
+# start tmux if not running
+if ! [ -v TMUX ]; then
+  # shellcheck disable=SC2091
+  if $(tmux has-session -t main); then
+    tmux attach-session -t main
+  else
+    tmux new-session -s main
+  fi
+fi
