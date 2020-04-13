@@ -46,6 +46,16 @@ highlight NonText cterm=bold ctermfg=21
 " Enable puppet syntax
 au BufRead,BufNewFile *.pp set filetype=puppet
 
+" HCL (HashiCorp Configuration Language)
+au BufNewFile,BufRead *.hcl set filetype=hcl
+
+" Nomad
+autocmd BufNewFile,BufRead *.nomad set filetype=hcl
+
+" Terraform
+autocmd BufNewFile,BufRead *.tf     set filetype=hcl
+autocmd BufNewFile,BufRead *.tfvars set filetype=hcl
+
 " Vundle configuration
 set nocompatible
 filetype off
@@ -63,6 +73,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'Yggdroot/indentLine'
+Plugin 'rodjek/vim-puppet'
 
 call vundle#end()
 filetype plugin indent on
@@ -125,6 +136,7 @@ if has('autocmd')
   autocmd FileType json setlocal ts=2 sw=2 et fo=tcq2l
   autocmd FileType json let g:indentLine_enabled = 0
   autocmd FileType yaml setlocal ts=2 sw=2 et
+  autocmd FileType hcl setlocal ts=2 sw=2 et
 endif
 
 if exists('$TMUX')

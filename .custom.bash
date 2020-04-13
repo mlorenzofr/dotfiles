@@ -1,7 +1,9 @@
 # History
-HISTSIZE=1000000
-HISTFILESIZE=2000000
-HISTTIMEFORMAT='%F %T '
+export HISTSIZE=1000000
+export HISTFILESIZE=2000000
+export HISTTIMEFORMAT='%F %T '
+export HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
 
 # Set terminator as a default TERMINAL
 export TERMINAL="/usr/bin/urxvt"
