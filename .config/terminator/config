@@ -37,7 +37,7 @@
   [[default]]
     copy_on_selection = True
     cursor_color = "#ffffff"
-    font = Terminus 10
+    font = DejaVu Sans Mono 10
     foreground_color = "#ffffff"
     scrollback_infinite = True
     use_system_font = False
