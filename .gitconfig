@@ -1,24 +1,47 @@
-[user]
-name  = Manuel Lorenzo Frieiro
-email = mlorenzofr@gmail.com
+[include]
+  path = ~/.gitconfig-user
 
 [color]
-status = auto
-branch = auto
-interactive = auto
-diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  diff = auto
+
+[pretty]
+  classic = format:"%Cgreen[%<(20)%ci] %C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]"
 
 [alias]
-cp = cherry-pick
-st = status -s
-cl = clone
-ci = commit
-co = checkout
-cob = checkout -b
-br = branch
-ls = log --date=human --pretty=format:"%Cgreen[%cd]\\ %C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-tree = log --graph --oneline
-rm-merged = "!git co master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-current-branch = "!git rev-parse --abbrev-ref HEAD"
-up  = "!f() { git pull --no-progress && git add . && git commit -a -m \"$1\" && git push -u origin $(git current-branch); }; f"
-undo-commit = reset --soft HEAD~1
+  amend = commit --amend
+  ammend = amend
+  br = branch
+  ci = commit -v
+  cl = clone
+  cp = cherry-pick
+  d = diff --diff-filter=ADM
+  o = checkout
+  nb = checkout -b
+  prb = pull --rebase
+  psh = push -u
+  sq = merge --squash
+  stat = status -s
+
+  ls = log --pretty=classic --decorate
+  tree = log --graph --oneline
+
+  undo = reset --soft HEAD~1
+  discard = checkout -- .
+
+  current-branch = "!git rev-parse --abbrev-ref HEAD"
+  find = "!f() { (git branch -a ; git ls-files) | grep $1; GIT_PAGER=cat git grep $1; }; f"
+  rm-merged = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+  up  = "!f() { git pull --no-progress && git add -A && git commit -a -m \"$1\" && git push -u; }; f"
+
+[pull]
+  ff = only
+
+[push]
+  default = upstream
+
+[branch]
+  autosetupmerge = always
+  autosetuprebase = always
