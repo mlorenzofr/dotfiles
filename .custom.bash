@@ -1,9 +1,23 @@
 # History
-export HISTSIZE=1000000
-export HISTFILESIZE=2000000
-export HISTTIMEFORMAT='%F %T '
-export HISTCONTROL=ignoredups:erasedups
+function _bash_history_sync {
+  builtin history -a
+  HISTFILESIZE=$HISTSIZE
+  builtin history -c
+  builtin history -r
+}
+
+HISTSIZE=1000000
+HISTFILESIZE=2000000
+# HISTTIMEFORMAT and ignoredups:erasedups are not compatible
+HISTTIMEFORMAT='%F %T '
+# HISTCONTROL=ignoredups:erasedups
+
+# Fix to avoid login shells truncate the history
+HISTFILE="$HOME/.bash_thistory"
 shopt -s histappend
+
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}_bash_history_sync"
 
 # Set terminator as a default TERMINAL
 export TERMINAL="/usr/bin/urxvt"
@@ -15,7 +29,7 @@ export EDITOR="vi"
 export VISUAL="vi"
 
 # Define the type of running terminal
-# avoid define if possible
+# avoid define it if possible
 # export TERM="xterm-256color"
 
 # Set less as default PAGER
@@ -51,6 +65,7 @@ alias p="ps auxf"
 alias v="vim"
 alias nocomment="grep -Ev '^(#|$)'"
 alias public-ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias weather="curl http://wttr.in?format=3"
 
 # List Debian installed (and unused) kernels
 function kernels {
@@ -88,15 +103,15 @@ function title {
 }
 
 function ssh {
-  wname="$(echo "$*" | cut -d '.' -f 1)"
+  wname="$(echo "$*" | awk '{ print $NF }')"
   if [ -v TMUX ]; then
     tmux rename-window "${wname}"
   fi
   title "${wname}"
   command ssh "$@"
-  title "bash"
+  title "${HOSTNAME}"
   if [ -v TMUX ]; then
-    tmux rename-window "bash"
+    tmux rename-window "${HOSTNAME}"
   fi
 }
 
