@@ -210,7 +210,8 @@ for_window [class="Tor Browser" ] move to workspace 10
 exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.png
 exec_always /usr/bin/compton --config ~/.config/compton.conf
 exec --no-startup-id /usr/bin/dropbox start
-exec --no-startup-id /usr/bin/wicd-gtk -t
 exec --no-startup-id /usr/bin/numlockx on
 exec --no-startup-id /usr/bin/volumeicon
-exec --no-startup-id /usr/bin/xrandr --output $ext_screen --auto --left-of eDP1
+
+# Put external screen at the left of the main screen
+# exec --no-startup-id /usr/bin/xrandr --output $ext_screen --auto --left-of eDP1
