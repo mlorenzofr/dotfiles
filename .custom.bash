@@ -67,15 +67,16 @@ alias nocomment="grep -Ev '^(#|$)'"
 alias public-ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias weather="curl http://wttr.in?format=3"
 
-# List Debian installed (and unused) kernels
-function kernels {
+# List Debian installed (and unused) kernel and header packages
+function clean-kernels {
+  local running
+  running=$(uname -r | sed -E 's/(amd64|common)//g')
+  echo -n "apt-get remove --purge"
   dpkg -l \
-    | awk '{ if ($2 ~ /^linux-image-[0-9].*/) {
-               printf("%s ", $2)
-             }
-           }
-           END { print "" }' \
-    | sed "s/linux-image-$(uname -r)//g"
+    | awk '{ if ($2 ~ /^linux-(image|headers)-[0-9].*/) { print $2 }}' \
+    | sed -E "s/linux-(image|headers)-${running}[^ ]+//g" \
+    | sort -n -k3 -t'-' \
+    | awk '{ printf("%s ", $1) } END { print ""}'
 }
 
 # Use colors highlight
