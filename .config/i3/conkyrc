@@ -35,8 +35,30 @@ conky.text = [[[
             "separator" : false
         },
         {
+            "full_text" : "${wireless_bitrate wlp2s0}",
+            "color"     : "\#808080",
+            "separator" : false
+        },
+        {
+            "full_text" : "${wireless_link_qual_perc wlp2s0}%",
+            ${if_match ${wireless_link_qual_perc wlp2s0} < 25}
+              "color" : "\#FF0000",
+            ${else}
+              ${if_match ${wireless_link_qual_perc wlp2s0} < 50}
+                "color"     : "\#FFFF00",
+              ${else}
+                ${if_match ${wireless_link_qual_perc wlp2s0} < 75}
+                  "color"     : "\#ADFF2F",
+                ${else}
+                  "color"     : "\#00FF00",
+                ${endif}
+              ${endif}
+            ${endif}
+            "separator" : false
+        },
+        {
             "full_text" : " ${wireless_essid wlp2s0}",
-            "color"     : "\#00FF00"
+            "color"     : "\#33AFFF"
         },
     ${endif}
     ${if_up tun0}
@@ -90,12 +112,17 @@ conky.text = [[[
         ${endif}
         ${endif}
     ${else}
-        ${if_match ${battery_percent}==""}
+        ${if_match ${battery_percent}==100}
             "full_text" :  "",
             "color"     : "\#00FF00"
         ${else}
+          ${if_match ${battery_percent}==""}
+            "full_text" :  "",
+            "color"     : "\#00FF00"
+          ${else}
             "full_text" :  " Battery",
             "color"     : "\#8A2BE2"
+          ${endif}
         ${endif}
     ${endif}
     ${endif}
