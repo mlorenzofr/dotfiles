@@ -74,6 +74,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'Yggdroot/indentLine'
 Plugin 'rodjek/vim-puppet'
+Plugin 'pearofducks/ansible-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -93,6 +94,8 @@ let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_style_error_symbol = '!'
 let g:syntastic_style_warning_symbol = '-'
 let g:syntastic_python_checkers = ['pyflakes', 'flake8']
+let g:syntastic_ansible_checkers = ['ansible_lint']
+let g:syntastic_yaml_checkers = ['yamllint']
 
 " Mappings non-recursive for <normal> mode
 " Navigation through buffers and tabs
@@ -125,6 +128,9 @@ let g:airline#extensions#tabline#enabled = 1
 " indentLine configuration
 let g:indentLine_char = '¦'
 let g:indentLine_enabled = 1
+
+" ansible-vim
+let g:ansible_name_highlight = 'd'
 
 " Set specific settings depending on filetype
 if has('autocmd')
