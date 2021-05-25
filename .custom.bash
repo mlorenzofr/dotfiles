@@ -62,21 +62,19 @@ alias mnt="mount | column -t"
 alias path='echo -e ${PATH//:/\\n}'
 alias c="clear"
 alias p="ps auxf"
-alias v="vim"
 alias nocomment="grep -Ev '^(#|$)'"
 alias public-ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias weather="curl http://wttr.in?format=3"
 
-# List Debian installed (and unused) kernel and header packages
-function clean-kernels {
-  local running
-  running=$(uname -r | sed -E 's/(amd64|common)//g')
-  echo -n "apt-get remove --purge"
+# List Debian installed (and unused) kernels
+function kernels {
   dpkg -l \
-    | awk '{ if ($2 ~ /^linux-(image|headers)-[0-9].*/) { print $2 }}' \
-    | sed -E "s/linux-(image|headers)-${running}[^ ]+//g" \
-    | sort -n -k3 -t'-' \
-    | awk '{ printf("%s ", $1) } END { print ""}'
+    | awk '{ if ($2 ~ /^linux-image-[0-9].*/) {
+               printf("%s ", $2)
+             }
+           }
+           END { print "" }' \
+    | sed "s/linux-image-$(uname -r)//g"
 }
 
 # Use colors highlight
@@ -100,7 +98,8 @@ function cdl {
 
 # Manage window title
 function title {
-  echo -ne "\033]0;$*\007"
+  # shellcheck disable=SC1003
+  printf '\033k%s\033\\' "$*"
 }
 
 function ssh {
@@ -131,6 +130,10 @@ export POWERLINE_BASH_SELECT=1
 # shellcheck disable=SC1091
 source /usr/share/powerline/bindings/bash/powerline.sh
 
+# fzf
+# shellcheck disable=SC1091
+source /usr/share/doc/fzf/examples/key-bindings.bash
+
 # start tmux if not running
 if ! [ -v TMUX ]; then
   # shellcheck disable=SC2091
@@ -140,3 +143,12 @@ if ! [ -v TMUX ]; then
     tmux new-session -s main
   fi
 fi
+
+# edit given file or search in recently used files
+function v {
+  local file
+  # if arg1 is a path to existing file then simply open it in the editor
+  test -e "$1" && $EDITOR "$@" && return
+  # else use fasd and fzf to search for recent files
+  file="$(fasd -Rfl "$*" | fzf -1 -0 --no-sort +m)" && $EDITOR "${file}"
+}
