@@ -26,7 +26,9 @@ font pango:DejaVu Sans Mono 12, FontAwesome 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# set $terminal i3-sensible-terminal
+set $terminal /usr/local/bin/alacritty
+bindsym $mod+Return exec $terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -190,13 +192,13 @@ bindsym $mod+Shift+Escape exec --no-startup-id systemctl poweroff -i
 # Screenshots
 bindsym Print exec maim ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
 bindsym Control+Print exec maim -i $(xdotool getactivewindow) ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
-bindsym Shift+Print exec maim -s ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
+bindsym Shift+Print exec flameshot gui
 
 # Key binding for password-store dmenu script
 bindsym $mod+x exec /usr/local/bin/passmenu
 
 # Bound applications to specific workspaces
-assign [class="^discord$"] 1
+assign [class="^Alacritty$"] 1
 # Enable floating for xcalc
 for_window [class="XCalc"] floating enable
 # Special trick for firefox private browsing
@@ -208,10 +210,11 @@ for_window [class="Tor Browser" ] move to workspace 10
 
 # Startup apps
 exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.png
-exec_always /usr/bin/compton --config ~/.config/compton.conf
-exec --no-startup-id /usr/bin/dropbox start
+# exec_always /usr/bin/picom --experimental-backends --config ~/.config/picom.conf
+# exec --no-startup-id /usr/bin/dropbox start
 exec --no-startup-id /usr/bin/numlockx on
 exec --no-startup-id /usr/bin/volumeicon
+exec --no-startup-id /usr/bin/flameshot
 
 # Put external screen at the left of the main screen
 # exec --no-startup-id /usr/bin/xrandr --output $ext_screen --auto --left-of eDP1
