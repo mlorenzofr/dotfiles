@@ -8,6 +8,7 @@ from operator import sub
 
 iface = "wlp2s0"
 
+
 class net_traffic:
     def __init__(self):
         self.rx = self.get_stats('rx')
@@ -25,12 +26,12 @@ class net_traffic:
         interval, rx, tx = self.update()
         in_bytes = human_units(rx/interval)
         out_bytes = human_units(tx/interval)
-        jsdata = [{ "color": "#00FF00",
+        jsdata = [{"color": "#00FF00",
                    "full_text": '↓%s' % in_bytes,
-                   "name": "traffic_in" },
-                  { "color": "#FF0000",
+                   "name": "traffic_in"},
+                  {"color": "#FF0000",
                    "full_text": '↑%s' % out_bytes,
-                   "name": "traffic_out" }]
+                   "name": "traffic_out"}]
         return jsdata
 
     def update(self):
@@ -50,6 +51,7 @@ def print_line(msg):
     sys.stdout.write('%s\n' % msg)
     sys.stdout.flush()
 
+
 def read_line():
     try:
         line = sys.stdin.readline().strip()
@@ -59,6 +61,7 @@ def read_line():
     except KeyboardInterrupt:
         sys.exit()
 
+
 def human_units(number):
     units = ['', 'K', 'M', 'G', 'T']
     size = float(number)
@@ -67,6 +70,7 @@ def human_units(number):
         size = size / 1024
         counter += 1
     return "%0.f%s" % (size, units[counter])
+
 
 if __name__ == '__main__':
     print_line(read_line())

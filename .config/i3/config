@@ -210,8 +210,6 @@ for_window [class="Tor Browser" ] move to workspace 10
 
 # Startup apps
 exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.png
-# exec_always /usr/bin/picom --experimental-backends --config ~/.config/picom.conf
-# exec --no-startup-id /usr/bin/dropbox start
 exec --no-startup-id /usr/bin/numlockx on
 exec --no-startup-id /usr/bin/volumeicon
 exec --no-startup-id /usr/bin/flameshot

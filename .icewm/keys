@@ -1,8 +1,0 @@
-key "Super+a" audacious
-key "Super+f" pcmanfm
-key "Super+h" gksudo -k "/bin/systemctl poweroff"
-key "Super+i" iceweasel
-key "Super+l" light-locker-command -l
-key "Super+r" gksudo -k "/bin/systemctl reboot"
-key "Super+t" terminator -m
-key "Super+Space" kupfer
