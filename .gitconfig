@@ -16,14 +16,15 @@
   br = branch
   ci = commit -v
   cl = clone
+  cm = commit -v -a -m
+  co = checkout
   cp = cherry-pick
   d = diff --diff-filter=ADM
-  o = checkout
-  nb = checkout -b
+  dc = diff --cached
   prb = pull --rebase
   psh = push -u
   sq = merge --squash
-  stat = status -s
+  st = status -sb
 
   ls = log --pretty=classic --decorate
   tree = log --graph --oneline
@@ -40,7 +41,7 @@
   ff = only
 
 [push]
-  default = upstream
+  default = current
 
 [branch]
   autosetupmerge = always
