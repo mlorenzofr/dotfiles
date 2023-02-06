@@ -1,5 +1,5 @@
 [include]
-  path = ~/.gitconfig-user
+  path = ~/.gitconfig.local
 
 [color]
   status = auto
@@ -16,31 +16,34 @@
   br = branch
   ci = commit -v
   cl = clone
+  cm = commit -v -a -m
+  co = checkout
   cp = cherry-pick
   d = diff --diff-filter=ADM
-  o = checkout
-  nb = checkout -b
+  dc = diff --cached
   prb = pull --rebase
   psh = push -u
   sq = merge --squash
-  stat = status -s
+  st = status -sb
 
   ls = log --pretty=classic --decorate
   tree = log --graph --oneline
 
   undo = reset --soft HEAD~1
-  discard = checkout -- .
+  discard = reset --hard
 
   current-branch = "!git rev-parse --abbrev-ref HEAD"
   find = "!f() { (git branch -a ; git ls-files) | grep $1; GIT_PAGER=cat git grep $1; }; f"
   rm-merged = "!git checkout master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-  up  = "!f() { git pull --no-progress && git add -A && git commit -a -m \"$1\" && git push -u; }; f"
+  up  = "!f() { git add -A && git commit -a -m \"$1\" && git pull && git psh; }; f"
+  mr-web = "!xdg-open https://gitlab.example/path/to/repo/-/merge_requests/new?merge_request%5Bsource_branch%5D=\"$(git current-branch)\""
+  mr  = "push -o merge_request.create -o merge_request.target=master -o merge_request.merge_when_pipeline_succeeds"
 
 [pull]
   ff = only
 
 [push]
-  default = upstream
+  default = current
 
 [branch]
   autosetupmerge = always

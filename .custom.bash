@@ -21,7 +21,7 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}_bash_history_sync"
 
 # Set terminator as a default TERMINAL
 # export TERMINAL="/usr/bin/urxvt"
-export TERMINAL="/usr/local/bin/alacritty"
+export TERMINAL="/home/manuel/bin/alacritty"
 
 # Set vi as default editor
 export EDITOR="vi"

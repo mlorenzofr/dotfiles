@@ -67,6 +67,8 @@
 *color7:                S_base2
 *color15:               S_base3
 
+!-- Cursor --!
+Xcursor.size:   24
 
 !-- Xft settings --!
 Xft.rgba:       rgb
@@ -85,8 +87,8 @@ URxvt*background: [90]S_base04
 URxvt*depth: 32
 URxvt*fading: 40
 URxvt*fadeColor: S_base03
-URxvt*font: xft:Terminess Powerline:size=10:antialias=true
-URxvt*boldFont: xft:Terminess Powerline:bold:size=10:antialias=true
+URxvt*font: xft:Terminess Powerline:size=12:antialias=true
+URxvt*boldFont: xft:Terminess Powerline:bold:size=12:antialias=true
 URxvt*scrollBar: false
 URxvt*mouseWheelScrollPage: false
 URxvt*cursorBlink: true
