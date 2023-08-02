@@ -205,7 +205,7 @@ for_window [class="XCalc"] floating enable
 # The wm class is the same for normal/private mode. The only difference is the
 # title set AFTER the window creation (assign cannot be used in this case)
 for_window [class="Firefox-esr" ] move to workspace 2
-for_window [class="Firefox-esr" title=".*\(Private Browsing\).*"] move to workspace 3
+for_window [class="Firefox-esr" title=".*Private Browsing.*"] move to workspace 3
 for_window [class="Tor Browser" ] move to workspace 10
 
 # Startup apps
