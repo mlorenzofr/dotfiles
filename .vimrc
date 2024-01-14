@@ -4,6 +4,8 @@ set noswapfile      " Don't use swap files when editing
 set nobackup        " Don't use backup files when editing
 set history=250     " Increase command history
 set undolevels=250  " Increase undo levels
+scriptencoding utf-8
+set encoding=utf-8
 
 " UI
 " Set colors
@@ -56,27 +58,20 @@ autocmd BufNewFile,BufRead *.nomad set filetype=hcl
 autocmd BufNewFile,BufRead *.tf     set filetype=hcl
 autocmd BufNewFile,BufRead *.tfvars set filetype=hcl
 
-" Vundle configuration
-set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'gmarik/Vundle.vim'
+" vim-plug configuration
+call plug#begin()
 
 " Additional Plugins
-Plugin 'nvie/vim-flake8'
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-fugitive'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'bling/vim-airline'
-Plugin 'Yggdroot/indentLine'
-Plugin 'rodjek/vim-puppet'
-Plugin 'pearofducks/ansible-vim'
+Plug 'nvie/vim-flake8'
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'bling/vim-airline'
+Plug 'Yggdroot/indentLine'
+Plug 'rodjek/vim-puppet'
+Plug 'pearofducks/ansible-vim'
 
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 
 " Syntastic configuration

@@ -4,8 +4,8 @@
 set $mod Mod4
 
 # external screen
-set $ext_screen HDMI1
-# set $ext_screen DP-2
+set $ext_screen_right DP-2-1
+set $ext_screen_left DP-2-2
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -26,8 +26,8 @@ font pango:DejaVu Sans Mono 12, FontAwesome 10
 floating_modifier $mod
 
 # start a terminal
-# set $terminal i3-sensible-terminal
-set $terminal /usr/local/bin/alacritty
+# bindsym $mod+Return exec i3-sensible-terminal
+set $terminal /home/manuel/bin/alacritty
 bindsym $mod+Return exec $terminal
 
 # kill focused window
@@ -48,6 +48,9 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# By default the layout used is tabbed
+# workspace_layout tabbed
 
 # split in horizontal orientation
 bindsym $mod+h split h
@@ -101,9 +104,10 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # workspace bindings to outputs
-workspace 1 output eDP1
-workspace 2 output $ext_screen
-workspace 3 output $ext_screen
+workspace 1 output eDP-1
+workspace 2 output $ext_screen_right
+workspace 3 output $ext_screen_right
+workspace 4 output $ext_screen_left
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -137,17 +141,12 @@ bindsym $mod+r mode "resize"
 bar {
   position top
   status_command $HOME/.config/i3/conky-i3bar
-  # status_command i3status | ~/.config/i3status/custom.py
 }
 
 # Audio shortcuts compatible with PulseAudio 6.x and 4.x
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
-
-# Keyboard backlight shortcuts
-bindsym XF86KbdBrightnessUp exec sudo /usr/local/bin/asus-kbd-brightlight.sh +
-bindsym XF86KbdBrightnessDown exec sudo /usr/local/bin/asus-kbd-brightlight.sh -
 
 # Screen Brightness
 bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -10
@@ -157,7 +156,7 @@ bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight +10
 set $mode_display [Up/Down] HDMI On/Off, [Left/Right] Move WS
 mode "$mode_display" {
   # Enable external monitor with Up/Left
-  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen --auto --left-of eDP1
+  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen --auto --left-of eDP-1
   bindsym Left exec --no-startup-id /usr/bin/i3-msg 'move workspace to output left'
   # Disable external monitor with Down/Right
   bindsym Down exec --no-startup-id /usr/bin/xrandr --output $ext_screen --off
@@ -172,7 +171,7 @@ bindsym $mod+XF86Explorer mode "$mode_display"
 # Session and power management
 # Taken from ArchLinux wiki
 # "sleep 1 adds a small delay to prevent race conditions with suspend
-set $Locker i3lock -t -i ~/.config/i3/wallpaper.png && sleep 1
+set $Locker i3lock -t -i ~/.config/i3/lock.png && sleep 1
 set $mode_system System (l) Lock, (e) Logout, (s) Suspend, (h) Hibernate, (r) Reboot, (Shift+s) Shutdown
 mode "$mode_system" {
   bindsym l exec --no-startup-id $Locker, mode "default"
@@ -190,31 +189,42 @@ bindsym $mod+Escape exec --no-startup-id $Locker
 bindsym $mod+Shift+Escape exec --no-startup-id systemctl poweroff -i
 
 # Screenshots
-bindsym Print exec maim ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
-bindsym Control+Print exec maim -i $(xdotool getactivewindow) ~/Pictures/screenshot.$(date +'%F.%H.%M.%S').png
+bindsym Print exec maim $(xdg-user-dir PICTURES)/screenshot.$(date +'%F.%H.%M.%S').png
+bindsym Control+Print exec maim -i $(xdotool getactivewindow) $(xdg-user-dir PICTURES)/screenshot.$(date +'%F.%H.%M.%S').png
 bindsym Shift+Print exec flameshot gui
 
 # Key binding for password-store dmenu script
-bindsym $mod+x exec /usr/local/bin/passmenu
+bindsym $mod+x exec /home/manuel/bin/passmenu
+
+# Key binding to open youtube into a incognito window
+bindsym $mod+F9 exec /snap/bin/chromium --incognito https://www.youtube.com
 
 # Bound applications to specific workspaces
-assign [class="^Alacritty$"] 1
+assign [class="^Zim$"] 5
+assign [class="^Slack"] 1
+assign [class="^TelegramDesktop$"] 1
+assign [class="^Alacritty$"] 4
+assign [class="^chromium$"] 10
 # Enable floating for xcalc
 for_window [class="XCalc"] floating enable
 # Special trick for firefox private browsing
 # The wm class is the same for normal/private mode. The only difference is the
 # title set AFTER the window creation (assign cannot be used in this case)
-for_window [class="Firefox-esr" ] move to workspace 2
-for_window [class="Firefox-esr" title=".*\(Private Browsing\).*"] move to workspace 3
-for_window [class="Tor Browser" ] move to workspace 10
+for_window [class="firefox" ] move to workspace 2
+for_window [class="firefox" title=".*Private Browsing.*"] move to workspace 3
 
 # Startup apps
-exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.png
-# exec_always /usr/bin/picom --experimental-backends --config ~/.config/picom.conf
-# exec --no-startup-id /usr/bin/dropbox start
+exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.jpg
+exec_always /usr/bin/picom --config ~/.config/picom.conf
 exec --no-startup-id /usr/bin/numlockx on
 exec --no-startup-id /usr/bin/volumeicon
+exec --no-startup-id /bin/systemctl --user start gpg-agent
+exec --no-startup-id /usr/bin/xautolock -secure -time 5 -locker "$Locker"
+exec --no-startup-id /usr/bin/i3-msg "workspace 4; exec $terminal"
+exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'"
+exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'"
+exec --no-startup-id /snap/bin/slack
+exec --no-startup-id /snap/bin/firefox
+exec --no-startup-id /snap/bin/firefox -private-window
+exec --no-startup-id /snap/bin/telegram-desktop
 exec --no-startup-id /usr/bin/flameshot
-
-# Put external screen at the left of the main screen
-# exec --no-startup-id /usr/bin/xrandr --output $ext_screen --auto --left-of eDP1
