@@ -23,45 +23,27 @@ conky.text = [[[
             "color"     : "\#FF0000"
         },
     ${endif}
-    ${if_match "$gw_iface"=="wlp2s0"}
+    ${if_match "$gw_iface"=="wlp9s0"}
         {
-            "full_text" : "↓${downspeed wlp2s0}/s",
+            "full_text" : "↓${downspeed wlp9s0}/s",
             "color"     : "\#00FF00",
             "separator" : false
         },
         {
-            "full_text" : "↑${upspeed wlp2s0}/s",
+            "full_text" : "↑${upspeed wlp9s0}/s",
             "color"     : "\#FF0000",
             "separator" : false
         },
         {
-            "full_text" : "${wireless_bitrate wlp2s0}",
-            "color"     : "\#808080",
+            "full_text" : "${exec iw wlp9s0 link | awk '/signal:/ { printf("%.2f",($2+110)*10/7) }'}%",
             "separator" : false
         },
         {
-            "full_text" : "${wireless_link_qual_perc wlp2s0}%",
-            ${if_match ${wireless_link_qual_perc wlp2s0} < 25}
-              "color" : "\#FF0000",
-            ${else}
-              ${if_match ${wireless_link_qual_perc wlp2s0} < 50}
-                "color"     : "\#FFFF00",
-              ${else}
-                ${if_match ${wireless_link_qual_perc wlp2s0} < 75}
-                  "color"     : "\#ADFF2F",
-                ${else}
-                  "color"     : "\#00FF00",
-                ${endif}
-              ${endif}
-            ${endif}
-            "separator" : false
-        },
-        {
-            "full_text" : " ${wireless_essid wlp2s0}",
+            "full_text" : " ${exec iw wlp9s0 link | awk '/SSID:/ { print $2 }'}",
             "color"     : "\#33AFFF"
         },
     ${endif}
-    ${if_up tun0}
+    ${if_up redhat0}
         {
             "full_text" : " VPN",
             "color"     : "\#FFD700"
@@ -112,18 +94,8 @@ conky.text = [[[
         ${endif}
         ${endif}
     ${else}
-        ${if_match ${battery_percent}==100}
-            "full_text" :  "",
-            "color"     : "\#00FF00"
-        ${else}
-          ${if_match ${battery_percent}==""}
-            "full_text" :  "",
-            "color"     : "\#00FF00"
-          ${else}
-            "full_text" :  " Battery",
-            "color"     : "\#8A2BE2"
-          ${endif}
-        ${endif}
+        "full_text" :  "",
+        "color"     : "\#00FF00"
     ${endif}
     ${endif}
     },

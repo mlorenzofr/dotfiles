@@ -2,10 +2,9 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 set $mod Mod4
-
-# external screen
-set $ext_screen_right DP-2-1
-set $ext_screen_left DP-2-2
+set $int_screen eDP-1
+set $ext_screen_right HDMI-1
+set $ext_screen_left DP-2-1-5
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -26,15 +25,13 @@ font pango:DejaVu Sans Mono 12, FontAwesome 10
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-set $terminal /home/manuel/bin/alacritty
+set $terminal /usr/bin/alacritty
 bindsym $mod+Return exec $terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
 bindsym $mod+d exec /usr/bin/rofi -show drun
 
 # change focus
@@ -48,9 +45,6 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-
-# By default the layout used is tabbed
-# workspace_layout tabbed
 
 # split in horizontal orientation
 bindsym $mod+h split h
@@ -104,10 +98,11 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # workspace bindings to outputs
-workspace 1 output eDP-1
-workspace 2 output $ext_screen_right
-workspace 3 output $ext_screen_right
-workspace 4 output $ext_screen_left
+workspace 1 output $ext_screen_right
+workspace 2 output $ext_screen_left
+workspace 3 output $ext_screen_left
+workspace 5 output $int_screen
+workspace 6 output $int_screen
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -147,20 +142,19 @@ bar {
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym Shift+XF86AudioMute exec pactl set-source-mute 1 toggle
 
 # Screen Brightness
 bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -10
 bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight +10
 
 # Change between 1/2 monitor
-set $mode_display [Up/Down] HDMI On/Off, [Left/Right] Move WS
+set $mode_display [Up/Down] Enable/Disable external screens
 mode "$mode_display" {
-  # Enable external monitor with Up/Left
-  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen --auto --left-of eDP-1
-  bindsym Left exec --no-startup-id /usr/bin/i3-msg 'move workspace to output left'
-  # Disable external monitor with Down/Right
-  bindsym Down exec --no-startup-id /usr/bin/xrandr --output $ext_screen --off
-  bindsym Right exec --no-startup-id /usr/bin/i3-msg 'move workspace to output right'
+  # Enable external monitor with Up
+  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --auto --right-of $ext_screen_left --output $ext_screen_left --auto --output $int_screen --below $ext_screen_left --primary
+  # Disable external monitor with Down
+  bindsym Down exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --off --output $ext_screen_left --off
   # back to normal: Enter or Escape
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -171,7 +165,7 @@ bindsym $mod+XF86Explorer mode "$mode_display"
 # Session and power management
 # Taken from ArchLinux wiki
 # "sleep 1 adds a small delay to prevent race conditions with suspend
-set $Locker i3lock -t -i ~/.config/i3/lock.png && sleep 1
+set $Locker i3lock -t -i ~/Pictures/wallpapers/locked.png && sleep 1
 set $mode_system System (l) Lock, (e) Logout, (s) Suspend, (h) Hibernate, (r) Reboot, (Shift+s) Shutdown
 mode "$mode_system" {
   bindsym l exec --no-startup-id $Locker, mode "default"
@@ -194,17 +188,19 @@ bindsym Control+Print exec maim -i $(xdotool getactivewindow) $(xdg-user-dir PIC
 bindsym Shift+Print exec flameshot gui
 
 # Key binding for password-store dmenu script
-bindsym $mod+x exec /home/manuel/bin/passmenu
+bindsym $mod+x exec ~/git/my-scripts/passmenu
+bindsym $mod+F12 exec ~/bin/rhl
 
 # Key binding to open youtube into a incognito window
-bindsym $mod+F9 exec /snap/bin/chromium --incognito https://www.youtube.com
+bindsym $mod+F9 exec /usr/bin/chromium-browser --incognito https://www.youtube.com
+bindsym $mod+F10 exec /usr/bin/firefox --new-window https://meet.google.com
 
 # Bound applications to specific workspaces
-assign [class="^Zim$"] 5
-assign [class="^Slack"] 1
-assign [class="^TelegramDesktop$"] 1
-assign [class="^Alacritty$"] 4
-assign [class="^chromium$"] 10
+assign [class="^Alacritty$"] 1
+assign [class="chromium-browser"] 3
+# assign [class="^Zim$"] 4
+assign [class="^Slack"] 6
+assign [class="^TelegramDesktop$"] 6
 # Enable floating for xcalc
 for_window [class="XCalc"] floating enable
 # Special trick for firefox private browsing
@@ -212,19 +208,19 @@ for_window [class="XCalc"] floating enable
 # title set AFTER the window creation (assign cannot be used in this case)
 for_window [class="firefox" ] move to workspace 2
 for_window [class="firefox" title=".*Private Browsing.*"] move to workspace 3
+for_window [class="firefox" title="Meet.*"] move to workspace 5
 
 # Startup apps
 exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.jpg
 exec_always /usr/bin/picom --config ~/.config/picom.conf
 exec --no-startup-id /usr/bin/numlockx on
-exec --no-startup-id /usr/bin/volumeicon
-exec --no-startup-id /bin/systemctl --user start gpg-agent
-exec --no-startup-id /usr/bin/xautolock -secure -time 5 -locker "$Locker"
-exec --no-startup-id /usr/bin/i3-msg "workspace 4; exec $terminal"
-exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'"
+exec --no-startup-id /usr/bin/xautolock -secure -locker "$Locker"
 exec --no-startup-id "i3-msg 'workspace 2; append_layout ~/.config/i3/workspace-2.json'"
-exec --no-startup-id /snap/bin/slack
-exec --no-startup-id /snap/bin/firefox
-exec --no-startup-id /snap/bin/firefox -private-window
-exec --no-startup-id /snap/bin/telegram-desktop
+exec --no-startup-id "i3-msg 'workspace 3; append_layout ~/.config/i3/web.json'"
+exec --no-startup-id "i3-msg 'workspace 6; append_layout ~/.config/i3/workspace-6.json'"
+exec --no-startup-id /usr/bin/i3-msg "workspace 1; exec $terminal"
+exec --no-startup-id /usr/bin/firefox
+exec --no-startup-id /usr/bin/firefox --private-window
+exec --no-startup-id /usr/bin/flatpak run com.slack.Slack
+exec --no-startup-id /usr/bin/flatpak run org.telegram.desktop
 exec --no-startup-id /usr/bin/flameshot

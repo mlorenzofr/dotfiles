@@ -91,6 +91,7 @@ let g:syntastic_style_warning_symbol = '-'
 let g:syntastic_python_checkers = ['pyflakes', 'flake8']
 let g:syntastic_ansible_checkers = ['ansible_lint']
 let g:syntastic_yaml_checkers = ['yamllint']
+let g:syntastic_go_checkers = ['golangci_lint']
 
 " Mappings non-recursive for <normal> mode
 " Navigation through buffers and tabs
@@ -131,7 +132,7 @@ let g:ansible_name_highlight = 'd'
 if has('autocmd')
   autocmd FileType html,xml setlocal listchars-=tab:>.
   autocmd FileType make setlocal nolist noexpandtab
-  autocmd FileType go setlocal ts=2 sw=2 nolist
+  autocmd FileType go setlocal ts=2 sw=2 nolist noexpandtab
   autocmd FileType python setlocal ts=4 sw=4 et tw=79 fo=croqlt
   autocmd FileType puppet setlocal ts=2 sw=2 et
   autocmd FileType json setlocal ts=2 sw=2 et fo=tcq2l
