@@ -152,7 +152,7 @@ bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight +10
 set $mode_display [Up/Down] Enable/Disable external screens
 mode "$mode_display" {
   # Enable external monitor with Up
-  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --auto --right-of $ext_screen_left --output $ext_screen_left --auto --output $int_screen --below $ext_screen_left --primary
+  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --auto --right-of $ext_screen_left --output $ext_screen_left --auto --output $int_screen --below $ext_screen_left --primary --mode 1920x1200
   # Disable external monitor with Down
   bindsym Down exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --off --output $ext_screen_left --off
   # back to normal: Enter or Escape
@@ -192,7 +192,7 @@ bindsym $mod+x exec ~/git/my-scripts/passmenu
 bindsym $mod+F12 exec ~/bin/rhl
 
 # Key binding to open youtube into a incognito window
-bindsym $mod+F9 exec /usr/bin/chromium-browser --incognito https://www.youtube.com
+bindsym $mod+F9 exec /usr/bin/chromium-browser --incognito https://music.youtube.com
 bindsym $mod+F10 exec /usr/bin/firefox --new-window https://meet.google.com
 
 # Bound applications to specific workspaces
@@ -201,6 +201,7 @@ assign [class="chromium-browser"] 3
 # assign [class="^Zim$"] 4
 assign [class="^Slack"] 6
 assign [class="^TelegramDesktop$"] 6
+assign [class="^gnome-pomodoro$"] 6
 # Enable floating for xcalc
 for_window [class="XCalc"] floating enable
 # Special trick for firefox private browsing
@@ -224,3 +225,4 @@ exec --no-startup-id /usr/bin/firefox --private-window
 exec --no-startup-id /usr/bin/flatpak run com.slack.Slack
 exec --no-startup-id /usr/bin/flatpak run org.telegram.desktop
 exec --no-startup-id /usr/bin/flameshot
+exec --no-startup-id /usr/bin/gnome-pomodoro
