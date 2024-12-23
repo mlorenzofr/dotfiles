@@ -126,10 +126,21 @@ source "$fasd_cache"
 unset fasd_cache
 
 # Powerline configuration
-export POWERLINE_BASH_CONTINUATION=1
-export POWERLINE_BASH_SELECT=1
-# shellcheck disable=SC1091
-source /usr/share/powerline/bindings/bash/powerline.sh
+export GOPATH="${HOME}/go"
+function _update_ps1() {
+  PS1="$("$GOPATH/bin/powerline-go" -error $? -hostname-only-if-ssh)"
+
+  # Uncomment the following line to automatically clear errors after showing
+  # them once. This not only clears the error for powerline-go, but also for
+  # everything else you run in that shell. Don't enable this if you're not
+  # sure this is what you want.
+
+  # set "?"
+}
+
+if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi
 
 # fzf
 # shellcheck disable=SC1091
