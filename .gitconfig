@@ -16,7 +16,7 @@
   br = branch
   ci = commit -v
   cl = clone
-  cm = commit -v -a -m
+  cm = commit -v -s -a -m
   co = checkout
   cp = cherry-pick
   d = diff --diff-filter=ADM
@@ -46,3 +46,6 @@
 [branch]
   autosetupmerge = always
   autosetuprebase = always
+
+# [url "ssh://git@github.com/"]
+#   insteadOf = https://github.com/
