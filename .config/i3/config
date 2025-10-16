@@ -199,13 +199,17 @@ bindsym $mod+x exec /usr/local/bin/passmenu
 
 # Bound applications to specific workspaces
 assign [class="^Alacritty$"] 1
+assign [class="Pcmanfm"] 4
+
 # Enable floating for xcalc
 for_window [class="XCalc"] floating enable
+
 # Special trick for firefox private browsing
 # The wm class is the same for normal/private mode. The only difference is the
 # title set AFTER the window creation (assign cannot be used in this case)
-for_window [class="Firefox-esr" ] move to workspace 2
-for_window [class="Firefox-esr" title=".*Private Browsing.*"] move to workspace 3
+for_window [class="firefox-esr" ] move to workspace 2
+for_window [class="firefox-esr" title=".*Private Browsing.*"] move to workspace 3
+for_window [class="Chromium" ] move to workspace 10
 for_window [class="Tor Browser" ] move to workspace 10
 
 # Startup apps
