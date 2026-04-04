@@ -187,6 +187,12 @@ bindsym Print exec maim $(xdg-user-dir PICTURES)/screenshot.$(date +'%F.%H.%M.%S
 bindsym Control+Print exec maim -i $(xdotool getactivewindow) $(xdg-user-dir PICTURES)/screenshot.$(date +'%F.%H.%M.%S').png
 bindsym Shift+Print exec flameshot gui
 
+# gnome-calculator
+bindsym XF86Calculator exec gnome-calculator
+
+# music player
+bindsym XF86Tools exec audacious
+
 # Key binding for password-store dmenu script
 bindsym $mod+x exec ~/git/my-scripts/passmenu
 bindsym $mod+F12 exec ~/bin/rhl
@@ -198,12 +204,10 @@ bindsym $mod+F10 exec /usr/bin/firefox --new-window https://meet.google.com
 # Bound applications to specific workspaces
 assign [class="^Alacritty$"] 1
 assign [class="chromium-browser"] 3
-# assign [class="^Zim$"] 4
 assign [class="^Slack"] 6
 assign [class="^TelegramDesktop$"] 6
 assign [class="^gnome-pomodoro$"] 6
-# Enable floating for xcalc
-for_window [class="XCalc"] floating enable
+assign [class="^cursor$"] 7
 # Special trick for firefox private browsing
 # The wm class is the same for normal/private mode. The only difference is the
 # title set AFTER the window creation (assign cannot be used in this case)
