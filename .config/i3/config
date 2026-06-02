@@ -197,6 +197,9 @@ bindsym Shift+Print exec flameshot gui
 # Key binding for password-store dmenu script
 bindsym $mod+x exec /usr/local/bin/passmenu
 
+# Chromium
+bindsym $mod+F2 exec /usr/bin/chromium --incognito
+
 # Bound applications to specific workspaces
 assign [class="^Alacritty$"] 1
 assign [class="Pcmanfm"] 4
@@ -210,7 +213,9 @@ for_window [class="XCalc"] floating enable
 for_window [class="firefox-esr" ] move to workspace 2
 for_window [class="firefox-esr" title=".*Private Browsing.*"] move to workspace 3
 for_window [class="Chromium" ] move to workspace 10
+for_window [class="Chromium" title=".*Incognito.*"] move to workspace 9
 for_window [class="Tor Browser" ] move to workspace 10
+for_window [class="libreoffice-calc" ] move to workspace 5
 
 # Startup apps
 exec_always /usr/bin/feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.png
