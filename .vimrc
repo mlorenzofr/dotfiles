@@ -46,16 +46,6 @@ highlight NonText cterm=bold ctermfg=21
 " Enable puppet syntax
 au BufRead,BufNewFile *.pp set filetype=puppet
 
-" HCL (HashiCorp Configuration Language)
-au BufNewFile,BufRead *.hcl set filetype=hcl
-
-" Nomad
-autocmd BufNewFile,BufRead *.nomad set filetype=hcl
-
-" Terraform
-autocmd BufNewFile,BufRead *.tf     set filetype=hcl
-autocmd BufNewFile,BufRead *.tfvars set filetype=hcl
-
 " Vundle configuration
 set nocompatible
 filetype off
@@ -70,11 +60,8 @@ Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'bling/vim-airline'
 Plugin 'Yggdroot/indentLine'
-Plugin 'rodjek/vim-puppet'
-Plugin 'pearofducks/ansible-vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -94,8 +81,6 @@ let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_style_error_symbol = '!'
 let g:syntastic_style_warning_symbol = '-'
 let g:syntastic_python_checkers = ['pyflakes', 'flake8']
-let g:syntastic_ansible_checkers = ['ansible_lint']
-let g:syntastic_yaml_checkers = ['yamllint']
 
 " Mappings non-recursive for <normal> mode
 " Navigation through buffers and tabs
@@ -129,9 +114,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:indentLine_char = '¦'
 let g:indentLine_enabled = 1
 
-" ansible-vim
-let g:ansible_name_highlight = 'd'
-
 " Set specific settings depending on filetype
 if has('autocmd')
   autocmd FileType html,xml setlocal listchars-=tab:>.
@@ -142,12 +124,4 @@ if has('autocmd')
   autocmd FileType json setlocal ts=2 sw=2 et fo=tcq2l
   autocmd FileType json let g:indentLine_enabled = 0
   autocmd FileType yaml setlocal ts=2 sw=2 et
-  autocmd FileType hcl setlocal ts=2 sw=2 et
-endif
-
-if exists('$TMUX')
-  map [1;5D B
-  map [1;5C W
-  nnoremap <C-E> $
-  nnoremap <C-A> 0
 endif
