@@ -27,7 +27,7 @@ floating_modifier $mod
 
 # start a terminal
 # set $terminal i3-sensible-terminal
-set $terminal /usr/local/bin/alacritty
+set $terminal /usr/bin/alacritty
 bindsym $mod+Return exec $terminal
 
 # kill focused window
