@@ -49,6 +49,12 @@ conky.text = [[[
             "color"     : "\#FFD700"
         },
     ${endif}
+    ${if_up wt0}
+        {
+            "full_text" : " VPN",
+            "color"     : "\#FFD700"
+        },
+    ${endif}
     {
     ${if_match "${exec acpi -b | cut -d ' ' -f3}"=="Charging,"}
         "full_text" :  " ${format_time $battery_time "\hh\mm"}",
