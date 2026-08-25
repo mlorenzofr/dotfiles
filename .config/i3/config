@@ -152,7 +152,7 @@ bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight +10
 set $mode_display [Up/Down] Enable/Disable external screens
 mode "$mode_display" {
   # Enable external monitor with Up
-  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --auto --right-of $ext_screen_left --output $ext_screen_left --auto --output $int_screen --below $ext_screen_left --primary --mode 1920x1200
+  bindsym Up exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --auto --right-of $ext_screen_left --output $ext_screen_left --auto --output $int_screen --below $ext_screen_left --primary --mode 2560x1600 --scale 0.75x0.75
   # Disable external monitor with Down
   bindsym Down exec --no-startup-id /usr/bin/xrandr --output $ext_screen_right --off --output $ext_screen_left --off
   # back to normal: Enter or Escape
@@ -204,7 +204,7 @@ bindsym $mod+F10 exec /usr/bin/firefox --new-window https://meet.google.com
 # Bound applications to specific workspaces
 assign [class="^Alacritty$"] 1
 assign [class="chromium-browser"] 3
-assign [class="^Slack"] 6
+assign [class="Slack"] 6
 assign [class="^TelegramDesktop$"] 6
 assign [class="^gnome-pomodoro$"] 6
 assign [class="^cursor$"] 7
