@@ -3,18 +3,36 @@
     "floating": "auto_off",
     "layout": "tabbed",
     "marks": [],
-    "percent": 1,
+    "percent": null,
     "type": "con",
     "nodes": [
         {
             "border": "normal",
             "current_border_width": 2,
             "floating": "auto_off",
-            "name": "com.slack.Slack",
+            "name": "Slack",
             "percent": 1,
             "swallows": [
                {
-               "class": "^com\\.slack\\.slack$"
+               "class": "^com\\.slack\\.Slack$",
+               "instance": "^com\\.slack\\.slack$",
+               "title": ".*[Ss]lack.*"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "none",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "marks": [],
+            "name": "Telegram",
+            "percent": 1,
+            "swallows": [
+               {
+               "class": "^TelegramDesktop$",
+               "instance": "^Telegram$",
+               "title": ".*[Tt]elegram.*"
                }
             ],
             "type": "con"
