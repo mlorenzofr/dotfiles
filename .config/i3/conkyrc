@@ -43,6 +43,12 @@ conky.text = [[[
             "color"     : "\#33AFFF"
         },
     ${endif}
+    ${if_match "${exec bluetoothctl devices Connected}" != ""}
+        {
+            "full_text" : " ${exec bluetoothctl devices Connected | awk '{ print $3 }'}",
+            "color"     : "\#FF5C00"
+        },
+    ${endif}
     ${if_match ${exec pgrep -c falcon-sensor} > 0}
         {
             "full_text" : "☠",
