@@ -61,6 +61,24 @@ conky.text = [[[
             "color"     : "\#33AFFF"
         },
     ${endif}
+    ${if_match "${exec cat /sys/class/bluetooth/hci0/rfkill0/soft}" == "1"}
+        {
+            "full_text" : "",
+            "color"     : "\#FF0000"
+        },
+    ${else}
+        ${if_match "${exec bluetoothctl devices Connected}" != ""}
+            {
+                "full_text" : " ${exec bluetoothctl devices Connected | awk '{ print $3 }'}",
+                "color"     : "\#FF5C00"
+            },
+        ${else}
+            {
+                "full_text" : "",
+                "color"     : "\#33AFFF"
+            },
+        ${endif}
+    ${endif}
     ${if_up tun0}
         {
             "full_text" : " VPN",
