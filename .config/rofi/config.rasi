@@ -1,8 +1,8 @@
 configuration {
   show-icons: true;
   icon-theme: "Adwaita";
-  combi-modi: "window#drun#ssh";
-  drun-match-fields: "exec#name#generic#categories";
+  drun-match-fields: "name,generic,exec,categories,keywords";
+  drun-display-format: "{name}";
 }
 
-@theme "/usr/share/rofi/themes/arthur.rasi"
+@theme "/usr/share/rofi/themes/fancy.rasi"
